@@ -49,7 +49,7 @@ return response()->json($hotel);
 'email'=>'required|string',
 'devise'=>'required|string',
 'prixNuitee'=>'required|numeric|min:0',
-'cheminImage' => 'required|file|image|max:2048',
+'cheminImage' => 'nullable|file|image|max:2048',
         ]);
  if ($request->hasFile('cheminImage')) {
         $path = $request->file('cheminImage')->store('hotels', 'public');
