@@ -14,5 +14,11 @@ class Hotel extends Model
         'email',
         'devise',
         'cheminImage',
+        
     ];
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

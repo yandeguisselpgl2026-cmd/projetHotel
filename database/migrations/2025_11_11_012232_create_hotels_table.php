@@ -21,6 +21,7 @@ return new class extends Migration
              $table->enum('devise', ['FCFA', 'Euro', 'Dollar']);
             $table->string('cheminImage');            
             $table->timestamps();
+             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
