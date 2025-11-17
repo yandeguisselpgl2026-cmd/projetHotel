@@ -18,12 +18,14 @@ Route::group([
 });
 
 
-
-
-
-
+Route::middleware('auth:api')->group(function () {
+    
     Route::post('hotels', [HotelController::class, 'store']);
     Route::put('hotels/{hotel}', [HotelController::class, 'update']);
     Route::delete('hotels/{hotel}', [HotelController::class, 'destroy']);
     Route::get('hotels', [HotelController::class, 'index']);
-Route::get('hotels/{hotel}', [HotelController::class, 'show']);
+Route::get('hotels/{id}', [HotelController::class, 'show']);
+});
+
+
+
