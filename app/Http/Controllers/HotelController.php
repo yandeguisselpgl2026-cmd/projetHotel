@@ -28,7 +28,7 @@ $validated=$request->validate([
         $path = $request->file('cheminImage')->store('hotels', 'public');
         $validated['cheminImage'] = $path;
     }
-$validated['user_id'] = Auth::id();
+// $validated['user_id'] = Auth::id();
 $hotel=Hotel::create($validated);
 return response()->json($hotel);
     }
