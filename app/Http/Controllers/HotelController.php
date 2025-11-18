@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 class HotelController extends Controller
 {
     public function index(){
-        return response()->json(Hotel::all());
+        return response()->json(
+        Hotel::where('user_id', Auth::id())->get()
+    );
     }
 
     public function store(Request $request){
@@ -28,7 +30,7 @@ $validated=$request->validate([
         $path = $request->file('cheminImage')->store('hotels', 'public');
         $validated['cheminImage'] = $path;
     }
-// $validated['user_id'] = Auth::id();
+ $validated['user_id'] = Auth::id();
 $hotel=Hotel::create($validated);
 return response()->json($hotel);
     }
@@ -38,9 +40,9 @@ return response()->json($hotel);
     public function update(Request $request, $id) {
         $hotel = Hotel::findOrFail($id);
 
-        // if ($hotel->user_id !== Auth::id()) {
-        //     return response()->json(['message' => 'Unauthorized'], 403);
-        // }
+        if ($hotel->user_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
        $validated=$request->validate([
            'nomHotel'=>'required|string',
@@ -65,9 +67,9 @@ $hotel->update($validated);
     {
         $hotel = Hotel::findOrFail($id);
 
-        // if ($hotel->user_id !== Auth::id()) {
-        //     return response()->json(['message' => 'Non autorisé'], 403);
-        // }
+        if ($hotel->user_id !== Auth::id()) {
+            return response()->json(['message' => 'Non autorisé'], 403);
+        }
 
         $hotel->delete();
 

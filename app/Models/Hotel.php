@@ -14,6 +14,7 @@ class Hotel extends Model
         'email',
         'devise',
         'cheminImage',
+         'user_id',
         
     ];
     public function user()
